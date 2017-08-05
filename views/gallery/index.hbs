@@ -25,7 +25,10 @@
     {{#each locals}}
       {{#if hero}}
       {{else}}
-        <div class="small_gallery_image" ondblclick="window.open('/gallery/{{id}}')">
+        <div
+            class="small_gallery_image"
+            onclick="window.open('/gallery/refresh/{{id}}', '_self', true)"
+            ondblclick="window.open('/gallery/{{id}}')">
           <img class="link" src={{link}}>
           <p class="description">{{description}}</p>
           <p class="name">{{owner}}</p>

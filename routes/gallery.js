@@ -5,6 +5,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const router = express.Router();
 let db = require('../models');
+var { photoMetas } = require('../collections');
 let Authors = db.authors;
 let Photos = db.photos;
 
@@ -15,6 +16,7 @@ router.get('/new', newGalleryForm);
 
 router.get('/:id', displayGalleryPhoto);
 router.get('/:id/edit', editPhoto);
+router.get('/refresh/:id', refreshGallery);
 
 //done
 router.post('/', loadNewPhoto);
@@ -57,6 +59,39 @@ function getAllGalleries(req, res) {
   });
 }
 
+
+function refreshGallery(req, res){
+  let currUser = getSessionPassportId(req.session);
+  let replacementPhotoId = Number(req.params.id);
+
+  Photos.findAll({
+    include: [{model: Authors}]
+  })
+  .then( function (fotos) {
+    let photosArray = [];
+    fotos.forEach( (item, index) => {
+      let hero = false;
+      if (item.id === replacementPhotoId){ hero = true; }
+      let newObject = { id: item.id, link: item.link, description: item.description, owner: item.author.name, hero: hero };
+
+      if (currUser && currUser === item.owner) {
+        newObject.showEditButton = true;
+      } else {
+        newObject.showEditButton = false;
+      }
+      photosArray.push(newObject);
+    });
+    console.log(photosArray);
+    let locals = { locals: photosArray };
+    res.render('gallery/index', locals);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+
+}
+
 //Display Gallery Form
 function newGalleryForm(req, res) {
   let currUser = getSessionPassportId(req.session);
@@ -97,6 +132,7 @@ function editPhoto(req, res){
 }
 
 function loadNewPhoto(req, res) {
+  if( !req.body.meta ) req.body.meta = { meta : "is working" };
   let name = req.body.author;
   let url = req.body.link;
   let description = req.body.description;
@@ -106,24 +142,38 @@ function loadNewPhoto(req, res) {
     res.render('gallery/login', { errorMessage : "You must log in to perform that operation." });
     return;
   }
-
   let auId;
+
+  Authors
+    .findOrCreate({ where: {name: name}, defaults: {link: url, description: description, authorId: auId, owner: currUser}})
+    .spread((author, created) => {
+      console.log(author);
+      return;
+  });
 
   Authors.findAll( { where: {name: name} } )
   .then( result => {
-    if (result[0] === undefined) {
+    if (result.length < 1) {
       Authors.create( {name: name} )
       .then( ret => {
         auId = ret.dataValues.id;
-        Photos.create( {link: url, description: description, authorId: auId, owner: currUser} );
-        let locals = {link: url, description: description, name: name };
-        res.render('gallery/photo', locals);
+        Photos.create( {link: url, description: description, authorId: auId, owner: currUser} )
+        .then( photo => {
+          let locals = { link: url, description: description, name: name };
+          req.body.meta.photoId = photo.id;
+          photoMetas().insert(req.body.meta);
+          res.render('gallery/photo', locals);
+        });
       });
     } else {
       auId = result[0].dataValues.id;
-      Photos.create({link: url, description: description, authorId: auId, owner: currUser });
-      let locals = {link: url, description: description, name: name };
-      res.render('gallery/photo', locals);
+      Photos.create({link: url, description: description, authorId: auId, owner: currUser })
+      .then( photo => {
+          let locals = {link: url, description: description, name: name };
+          req.body.meta.photoId = photo.id;
+          photoMetas().insert(req.body.meta);
+          res.render('gallery/photo', locals);
+        });
     }
   });
 }
