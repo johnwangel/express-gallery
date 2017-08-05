@@ -8,12 +8,12 @@
     {{#if hero}}
       <div class="hero_section">
         <div class="hero_image">
-          <img class="link" src={{link}}>
+          <img class="hero_link" src={{link}}>
           <p class="description">{{description}}</p>
           <p class="name">{{owner}}</p>
           {{#if showEditButton}}
-            <form>
-              <button type="submit" formmethod="get" formaction="/gallery/{{id}}/edit" name="edit">Edit</button>
+            <form class="gallery_edit_form">
+              <button class="gallery_edit_button" type="submit" formmethod="get" formaction="/gallery/{{id}}/edit" name="edit">Edit</button>
             </form>
           {{/if}}
         </div>
@@ -25,13 +25,13 @@
     {{#each locals}}
       {{#if hero}}
       {{else}}
-        <div class="small_gallery_image">
+        <div class="small_gallery_image" ondblclick="window.open('/gallery/{{id}}')">
           <img class="link" src={{link}}>
           <p class="description">{{description}}</p>
           <p class="name">{{owner}}</p>
           {{#if showEditButton}}
-            <form>
-              <button type="submit" formmethod="get" formaction="/gallery/{{id}}/edit" name="edit">Edit</button>
+            <form class="gallery_edit_form">
+              <button class="small_gallery_edit_button" type="submit" formmethod="get" formaction="/gallery/{{id}}/edit" name="edit">Edit</button>
             </form>
           {{/if}}
         </div>

@@ -1,8 +1,8 @@
-<div class="login">
-  <form action="/login" method="POST">
-    <input type="text" name="username" placeholder="username"><br>
-    <input type="text" name="password" placeholder="password"><br>
-    <button type="submit">Login</button><br>
+<div class="user_login">
+  <form class="login_form" action="/login" method="POST">
+    <input class="login_box" type="text" name="username" placeholder="username">
+    <input  class="login_box" type="text" name="password" placeholder="password">
+    <button  class="login_button" type="submit">Login</button>
   </form>
   {{#if errorMessage}}
     <div class="error_message">{{errorMessage}}</div>

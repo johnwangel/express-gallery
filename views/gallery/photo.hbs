@@ -1,23 +1,18 @@
+<div class="mainBody">
 
-{{>head_buttons}}
-<div class='homecontainer'>
-<div class='hometop'>
-  <span class= 'homedescription'> blah blah blah </span>
-</div>
-<div class= 'homecontent'>
-  <div class="homeauthor">Photo by: {{name}}</div>
-
-  <div class='homeimgcontainer'>
-    <div> <img class="homeimg" src={{link}}> </div>
+  <div class="navigation">
+    {{>head_buttons}}
   </div>
-  <div class="hometext">{{description}}</div>
-</div>
-{{!-- <div class='homerightcontent'>
-  <div class='homerightimg'><img class='homeimgright' src='https://s-media-cache-ak0.pinimg.com/736x/cd/a5/1b/cda51b70758b5302de57225b7c52a202--husky-eyes-fluffy-dogs.jpg'> </div>
-  <span class='homerighttext'>text</span>
-  <div class='homerightimg'><img class='homeimgright' src='https://s-media-cache-ak0.pinimg.com/736x/cd/a5/1b/cda51b70758b5302de57225b7c52a202--husky-eyes-fluffy-dogs.jpg'></div>
-  <span class='homerighttext'>text</span>
-  <div class='homerightimg'><img class='homeimgright' src='https://s-media-cache-ak0.pinimg.com/736x/cd/a5/1b/cda51b70758b5302de57225b7c52a202--husky-eyes-fluffy-dogs.jpg'></div>
-  <span class='homerighttext'>text</span>
-</div> --}}
-</div>
+
+  <div class="photo_section">
+        <div class="hero_image">
+          <img class="hero_link" src={{link}}>
+          <p class="description">{{description}}</p>
+          <p class="name">{{owner}}</p>
+          {{#if showEditButton}}
+            <form class="gallery_edit_form">
+              <button class="gallery_edit_button" type="submit" formmethod="get" formaction="/gallery/{{id}}/edit" name="edit">Edit</button>
+            </form>
+          {{/if}}
+        </div>
+  </div>

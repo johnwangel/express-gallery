@@ -72,7 +72,8 @@ function displayGalleryPhoto(req, res) {
   Photos.findById(req.params.id,
     {include: [{model: Authors}]})
   .then((photoById) => {
-    let locals = {link: photoById.link, description: photoById.description, name: photoById.author.name };
+    let locals = {id: photoById.id, link: photoById.link, description: photoById.description, owner: photoById.author.name };
+    console.log(locals);
     res.render('gallery/photo', locals);
   })
   .catch((err) => {
