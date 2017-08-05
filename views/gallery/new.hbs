@@ -1,0 +1,26 @@
+<div class="mainBody">
+  <div class="navigation">
+    {{>head_buttons}}
+  </div>
+  <div class="new_form">
+
+    <div class="upload_form">
+      <form action='/gallery/' method='POST'>
+        <div class="upload_head">Upload Photo</div>
+
+        <div class="upload_form_box">
+          <input class="input_text" type="text" name="author" placeholder="Author name">
+        </div>
+        <div class="upload_form_box">
+          <input class="input_text" type="text" name="link" placeholder="Link">
+        </div>
+        <div class="upload_form_box">
+          <input class="input_text" type="text" name="description" placeholder="Description">
+        </div>
+        <div class="upload_form_button">
+          <input class="db_update" type="submit" value="Upload">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

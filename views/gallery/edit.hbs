@@ -1,0 +1,13 @@
+{{>head_buttons}}
+<h1>Edit</h1>
+<form stlye = 'display:inline' action='/gallery/{{id}}?_method=PUT' method='POST'>
+<input type="text" name="id" placeholder="Author Id" value="{{id}}" readonly>
+  <input type="text" name="name" placeholder="Author name" value="{{name}}" readonly>
+  <input type="text" name="link" placeholder="Link" value="{{link}}" readonly>
+  <input type="text" name="description" placeholder="Description" value="{{description}}">
+  <div></div>
+  <button class="db_update" type='submit'>submit</button>
+</form>
+<form action="/gallery/{{id}}?_method=DELETE" method='POST'>
+  <button class="delete" type='submit'>delete</button>
+</form>

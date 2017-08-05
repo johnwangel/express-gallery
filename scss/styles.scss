@@ -1,0 +1,170 @@
+// @import 'partials/_reset';
+// @import 'partials/_clearfix';
+
+@import url('https://fonts.googleapis.com/css?family=Muli');
+
+// Variables
+$bg-banner: black;
+$bg-button: #C0;
+$dark: #222;
+$light: white;
+$bright: #EEE;
+$padding: 100px;
+// @import 'partials/_mixins';
+
+// Media Query Ranges
+
+
+
+// Styles
+  body{
+    background-color: $light;
+    text-align: center;
+    color: #EEE;
+    font-family: 'Muli', sans-serif;
+    margin: 0;
+    padding: 0;
+
+  }
+
+  h1 {
+    color: $bg-button;
+  }
+
+  button, .db_update {
+    background-color: $bg-button;
+    border-radius: 15px;
+    width: 100px;
+    height: 30px;
+    margin: 10px;
+    border: solid .5px black;
+    font-family: 'Muli', sans-serif;
+    font-size: 12px;
+    color: black;
+  }
+
+  .banner {
+    display: flex;
+    background-color: $bg-banner;
+    height: 80px;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 24px;
+    padding-left: 40px;
+    white-space: nowrap;
+  }
+
+  .mainBody {
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+    color: black;
+  }
+
+  .navigation {
+    display: flex;
+    width: 12%;
+  }
+
+  .nav_buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .new_form {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 88%;
+    margin-left: 100px;
+  }
+
+  .upload_form {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  form {
+    border-style: none;
+  }
+
+  .upload_head {
+    font-weight: bold;
+    font-color: $bg-button;
+    font-size: 24px;
+    margin: 10px;
+  }
+
+  .upload_form_box {
+    width: 400px;
+    height: 25px;
+    padding: 5px;
+  }
+
+  .input_text {
+    width: 400px;
+    font-size: 14px;
+
+    height: 25px;
+    margin: 2px;
+    align: padding-left;
+  }
+
+  .hero_section {
+    width: 53%;
+  }
+
+  .small_gallery {
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    margin-top: 0px;
+    margin-bottom: 40px;
+    background-color: lightgray;
+    padding-top: 20px;
+  }
+
+  .small_gallery_image {
+
+  }
+
+  .link {
+    border: solid black 1px;
+  }
+
+  .description {
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    margin-left: 35px;
+    text-align: left;
+    width: 80%;
+  }
+
+  .name {
+    font-size: 10px;
+    margin-top: 1px;
+    margin-left: 35px;
+    text-align: left;
+    width: 80%;
+  }
+
+  .name:before {
+    content: "Photo courtesy of "
+  }
+
+  img {
+    max-width:80%;
+  }
+
+
+
+@media screen and (min-width: 600px) {
+
+}
+
+@media screen and (min-width: 900px) {
+
+}

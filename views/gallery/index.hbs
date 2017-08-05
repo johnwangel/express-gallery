@@ -1,0 +1,44 @@
+<div class="mainBody">
+
+  <div class="navigation">
+    {{>head_buttons}}
+  </div>
+
+  {{#each locals}}
+    {{#if hero}}
+      <div class="hero_section">
+        <div class="hero_image">
+          <img class="link" src={{link}}>
+          <p class="description">{{description}}</p>
+          <p class="name">{{owner}}</p>
+          {{#if showEditButton}}
+            <form>
+              <button type="submit" formmethod="get" formaction="/gallery/{{id}}/edit" name="edit">Edit</button>
+            </form>
+          {{/if}}
+        </div>
+      </div>
+    {{/if}}
+  {{/each}}
+
+  <div class="small_gallery">
+    {{#each locals}}
+      {{#if hero}}
+      {{else}}
+        <div class="small_gallery_image">
+          <img class="link" src={{link}}>
+          <p class="description">{{description}}</p>
+          <p class="name">{{owner}}</p>
+          {{#if showEditButton}}
+            <form>
+              <button type="submit" formmethod="get" formaction="/gallery/{{id}}/edit" name="edit">Edit</button>
+            </form>
+          {{/if}}
+        </div>
+      {{/if}}
+    {{/each}}
+
+  </div>
+
+</div>
+
