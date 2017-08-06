@@ -1,7 +1,31 @@
 <div class="buttons">
   <form "nav_buttons">
-    <div class="inner_button"><button type="submit" formmethod="get" formaction="/gallery/" name="gallery">View Gallery</button></div>
-    <div class="inner_button"><button type="submit" formmethod="get" formaction="/gallery/new" name="new_photo">Add Photo</button></div>
-    <div class="inner_button"><button type="submit" formmethod="get" formaction="/logout" name="logout">Logout</button></div>
+    <div class="inner_button">
+      <button
+        type="submit"
+        formmethod="get"
+        formaction="/gallery/"
+        name="gallery">
+          View Full Gallery
+      </button>
+    </div>
+    <div class="inner_button">
+      <button
+        type="submit"
+        formmethod="get"
+        formaction="/gallery/user"
+        name="gallery">
+          View My Gallery
+      </button>
+    </div>
+    <div class="inner_button">
+      <button
+        type="submit"
+        formmethod="get"
+        formaction="/gallery/new"
+        name="new_photo">
+          Add Photo
+      </button>
+    </div>
   </form>
 </div>

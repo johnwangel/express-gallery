@@ -16,3 +16,14 @@
           {{/if}}
         </div>
   </div>
+
+  <div class="metadata_section">
+    <ul class="metadata_list">
+      {{#each meta}}
+        <li class="metadata_item">
+          <span class="runin_head">{{@key}}</span> : {{ this }}
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+</div>

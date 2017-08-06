@@ -12,7 +12,7 @@ h1 {
 
 button {
   background-color: white;
-  width: 100px;
+  width: 120px;
   height: 30px;
   border: none;
   font-family: 'Muli', sans-serif;
@@ -22,7 +22,7 @@ button {
 
 button:hover {
   background-color: black;
-  color: white; }
+  color: yellow; }
 
 .login_button, .db_update {
   background-color: lightgray;
@@ -30,11 +30,23 @@ button:hover {
   font-size: 14px;
   width: 70px;
   height: 30px;
-  border: none; }
+  border: none;
+  text-align: center; }
 
 .login_button:hover, .db_update:hover {
   background-color: black;
   color: white; }
+
+.register_button, .logout_button {
+  margin-left: 50%;
+  background-color: black;
+  color: white; }
+
+.logout_button {
+  margin-left: 1%; }
+
+.register_button:hover, .logout_button:hover {
+  color: yellow; }
 
 .banner {
   position: fixed;
@@ -47,6 +59,9 @@ button:hover {
   font-size: 24px;
   padding-left: 40px;
   white-space: nowrap; }
+
+.header_title {
+  font-size: 36px; }
 
 .mainBody {
   display: flex;
@@ -73,9 +88,10 @@ button:hover {
   width: 88%;
   margin-left: 100px; }
 
-.upload_form, .photo_section {
+.upload_form {
   display: flex;
   justify-content: flex-start;
+  flex-direction: column;
   margin-top: 100px;
   margin-left: 20%; }
 
@@ -92,6 +108,7 @@ form {
   width: 400px;
   height: 25px;
   padding: 5px;
+  font-size: 14px;
   margin-bottom: 10px; }
 
 .input_text, .login_box {
@@ -101,7 +118,7 @@ form {
   margin: 2px;
   align: padding-left; }
 
-.hero_section {
+.hero_section, .photo_section {
   position: fixed;
   margin-top: 100px;
   margin-left: 12%;
@@ -116,15 +133,32 @@ img {
   margin: 100px;
   flex-direction: column; }
 
-.small_gallery {
+.small_gallery, .metadata_section {
   margin-top: 80px;
   margin-left: 65%;
   display: flex;
   flex-direction: column;
   width: 35%;
+  height: 100%;
   margin-bottom: 40px;
   background-color: lightgray;
   padding-top: 20px; }
+
+.metadata_section {
+  margin-top: 120px;
+  margin-left: 58%; }
+
+.metadata_list {
+  text-align: left;
+  list-style: none;
+  padding: 10px; }
+
+.metadata_item {
+  margin-bottom: 10px; }
+
+.runin_head {
+  color: blue;
+  font-size: 16px; }
 
 .description, .name {
   font-size: 14px;
@@ -149,6 +183,9 @@ img {
   color: blue;
   text-decoration: underline;
   width: 40px; }
+
+.uneditable {
+  background-color: lightgray; }
 
 .small_gallery_edit_button {
   background-color: lightgray; }

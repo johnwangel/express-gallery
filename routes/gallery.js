@@ -81,14 +81,12 @@ function refreshGallery(req, res){
       }
       photosArray.push(newObject);
     });
-    console.log(photosArray);
     let locals = { locals: photosArray };
     res.render('gallery/index', locals);
   })
   .catch((err) => {
     console.log(err);
   });
-
 
 }
 
@@ -104,35 +102,50 @@ function newGalleryForm(req, res) {
 
 //Displays a gallery photo based on request ID
 function displayGalleryPhoto(req, res) {
+  let locals = {};
   Photos.findById(req.params.id,
     {include: [{model: Authors}]})
   .then((photoById) => {
     let locals = {id: photoById.id, link: photoById.link, description: photoById.description, owner: photoById.author.name };
-    console.log(locals);
-    res.render('gallery/photo', locals);
-  })
-  .catch((err) => {
-    console.log(err);
+    photoMetas().findOne( { "meta.photoId" : String(photoById.id) })
+    .then( fMeta => {
+        let meta = fMeta.meta;
+        delete meta.photoId;
+        locals.meta = meta;
+        res.render('gallery/photo', locals);
+    })
+    .catch((err) => {
+      res.render('gallery/photo', locals);
+    });
   });
 }
 
 function editPhoto(req, res){
  let currUser = getSessionPassportId(req.session);
 
- Photos.findById(req.params.id,
-  {include: [{model: Authors}]})
- .then((photoById) => {
-  if (currUser !== photoById.owner){
-    res.render('gallery/login', { errorMessage: "You must log in to perform that operation." });
-    return;
-  }
-  let locals = {id : photoById.id, link: photoById.link, description: photoById.description, name: photoById.author.name };
-  res.render('gallery/edit', locals);
-});
+  Photos.findById(req.params.id, {include: [{model: Authors}]})
+   .then((photoById) => {
+    if (currUser !== photoById.owner){
+      res.render('gallery/login', { errorMessage: "You must log in to perform that operation." });
+      return;
+    }
+    let locals = {id : photoById.id, link: photoById.link, description: photoById.description, name: photoById.author.name };
+    photoMetas().findOne( { 'meta.photoId' : String(photoById.id) } )
+    .then( fMeta => {
+        let meta = fMeta.meta;
+        // delete meta._id;
+        delete meta.photoId;
+        locals.meta = meta;
+        console.log("MY LOCALS ", locals);
+        res.render('gallery/edit', locals);
+    })
+    .catch((err) => {
+        res.render('gallery/edit', locals);
+    });
+  });
 }
 
 function loadNewPhoto(req, res) {
-  if( !req.body.meta ) req.body.meta = { meta : "is working" };
   let name = req.body.author;
   let url = req.body.link;
   let description = req.body.description;
@@ -142,49 +155,44 @@ function loadNewPhoto(req, res) {
     res.render('gallery/login', { errorMessage : "You must log in to perform that operation." });
     return;
   }
-  let auId;
 
   Authors
-    .findOrCreate({ where: {name: name}, defaults: {link: url, description: description, authorId: auId, owner: currUser}})
+    .findOrCreate({ where: {name: name}, defaults: { name : name }})
     .spread((author, created) => {
-      console.log(author);
-      return;
-  });
-
-  Authors.findAll( { where: {name: name} } )
-  .then( result => {
-    if (result.length < 1) {
-      Authors.create( {name: name} )
-      .then( ret => {
-        auId = ret.dataValues.id;
-        Photos.create( {link: url, description: description, authorId: auId, owner: currUser} )
-        .then( photo => {
-          let locals = { link: url, description: description, name: name };
-          req.body.meta.photoId = photo.id;
-          photoMetas().insert(req.body.meta);
-          res.render('gallery/photo', locals);
-        });
-      });
-    } else {
-      auId = result[0].dataValues.id;
-      Photos.create({link: url, description: description, authorId: auId, owner: currUser })
+      Photos.create({link: url, description: description, authorId: author.id, owner: currUser })
       .then( photo => {
           let locals = {link: url, description: description, name: name };
-          req.body.meta.photoId = photo.id;
-          photoMetas().insert(req.body.meta);
+          if( req.body.meta ){
+            req.body.meta.photoId = photo.id;
+            photoMetas().insert(req.body.meta);
+          }
           res.render('gallery/photo', locals);
         });
-    }
   });
 }
 
+// /gallery/id
 function updatePhoto(req, res){
-
   let sessionId = getSessionPassportId(req.session);
   if (!sessionId) {
     res.render('gallery/login', { errorMessage : "You must log in to perform that operation." });
     return;
   }
+
+  if (req.body.meta){
+    let meta = req.body.meta;
+    meta.photoId = req.body.id;
+    console.log(req.body.meta);
+    photoMetas().update(
+      { "meta.photoId" : String(req.body.id) },
+      { "meta" : meta }
+    )
+    .then( ret => {
+      console.log(ret);
+    })
+    .catch( err => console.log(err) );
+  }
+
   Photos.findById(req.params.id)
   .then( photoById => {
     Photos.update( { description : req.body.description }, { where: { id: req.params.id } } )

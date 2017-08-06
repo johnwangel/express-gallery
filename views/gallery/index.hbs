@@ -7,7 +7,7 @@
   {{#each locals}}
     {{#if hero}}
       <div class="hero_section">
-        <div class="hero_image">
+        <div class="hero_image" onclick="window.location='/gallery/{{id}}'">
           <img class="hero_link" src={{link}}>
           <p class="description">{{description}}</p>
           <p class="name">{{owner}}</p>
@@ -28,13 +28,17 @@
         <div
             class="small_gallery_image"
             onclick="window.open('/gallery/refresh/{{id}}', '_self', true)"
-            ondblclick="window.open('/gallery/{{id}}')">
+          >
           <img class="link" src={{link}}>
           <p class="description">{{description}}</p>
           <p class="name">{{owner}}</p>
           {{#if showEditButton}}
             <form class="gallery_edit_form">
-              <button class="small_gallery_edit_button" type="submit" formmethod="get" formaction="/gallery/{{id}}/edit" name="edit">Edit</button>
+              <button class="small_gallery_edit_button"
+                type="submit"
+                formmethod="get"
+                formaction="/gallery/{{id}}/edit"
+                name="edit">Edit</button>
             </form>
           {{/if}}
         </div>

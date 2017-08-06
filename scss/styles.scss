@@ -27,10 +27,10 @@ $padding: 100px;
     color: $bg-button;
   }
 
-  button,  {
+  button {
     background-color: white;
     // border-radius: 15px;
-    width: 100px;
+    width: 120px;
     height: 30px;
     border: none;
     font-family: 'Muli', sans-serif;
@@ -41,21 +41,46 @@ $padding: 100px;
 
   button:hover {
     background-color: black;
-    color: white;
+    color: yellow;
   }
 
   .login_button, .db_update {
     background-color: lightgray;
     color: black;
     font-size: 14px;
-    width: 70px;
+    min-width: 70px;
     height: 30px;
     border: none;
+    text-align: center;
   }
 
-  .login_button:hover, .db_update:hover {
+  .db_update_meta {
+    background-color: lightgray;
+    color: black;
+    font-size: 14px;
+    height: 30px;
+    border: none;
+    text-align: center;
+    width: 120px;
+  }
+
+  .login_button:hover, .db_update:hover, .db_update_meta:hover {
     background-color: black;
     color: white;
+  }
+
+  .register_button, .logout_button {
+    margin-left: 50%;
+    background-color: black;
+    color: white;
+  }
+
+  .logout_button {
+    margin-left: 1%;
+  }
+
+  .register_button:hover, .logout_button:hover {
+    color: yellow;
   }
 
   .banner {
@@ -69,6 +94,10 @@ $padding: 100px;
     font-size: 24px;
     padding-left: 40px;
     white-space: nowrap;
+  }
+
+  .header_title {
+    font-size: 36px;
   }
 
   .mainBody {
@@ -101,9 +130,10 @@ $padding: 100px;
     margin-left: 100px;
   }
 
-  .upload_form, .photo_section {
+  .upload_form {
     display: flex;
     justify-content: flex-start;
+    flex-direction: column;
     margin-top: 100px;
     margin-left: 20%;
   }
@@ -123,6 +153,7 @@ $padding: 100px;
     width: 400px;
     height: 25px;
     padding: 5px;
+    font-size: 14px;
     margin-bottom: 10px;
   }
 
@@ -134,7 +165,7 @@ $padding: 100px;
     align: padding-left;
   }
 
-  .hero_section {
+  .hero_section, .photo_section {
     position: fixed;
     margin-top: 100px;
     margin-left: 12%;
@@ -152,15 +183,36 @@ $padding: 100px;
     flex-direction: column;
   }
 
-  .small_gallery {
+  .small_gallery, .metadata_section {
     margin-top: 80px;
     margin-left: 65%;
     display: flex;
     flex-direction: column;
     width: 35%;
+    height: 100%;
     margin-bottom: 40px;
     background-color: lightgray;
     padding-top: 20px;
+  }
+
+  .metadata_section {
+    margin-top: 120px;
+    margin-left: 58%;
+  }
+
+  .metadata_list {
+    text-align: left;
+    list-style: none;
+    padding: 10px;
+  }
+
+  .metadata_item {
+    margin-bottom: 10px;
+  }
+
+  .runin_head {
+    color: blue;
+    font-size: 16px;
   }
 
   .small_gallery_image {
@@ -195,6 +247,10 @@ $padding: 100px;
     width: 40px;
   }
 
+  .uneditable {
+    background-color: lightgray;
+  }
+
   .small_gallery_edit_button {
     background-color: lightgray;
   }
@@ -226,7 +282,6 @@ $padding: 100px;
     margin: 20px;
     font-size: 18px;
   }
-
 
 
 @media screen and (min-width: 600px) {
