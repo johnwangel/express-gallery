@@ -179,8 +179,10 @@ function updatePhoto(req, res){
     return;
   }
 
+  let meta;
+
   if (req.body.meta){
-    let meta = req.body.meta;
+    meta = req.body.meta;
     meta.photoId = req.body.id;
     console.log(req.body.meta);
     photoMetas().update(
@@ -188,9 +190,13 @@ function updatePhoto(req, res){
       { "meta" : meta }
     )
     .then( ret => {
-      console.log(ret);
+      if (ret.result.n === 0){
+        photoMetas().insert({ "meta" : meta });
+      }
     })
-    .catch( err => console.log(err) );
+    .catch( err => {
+      console.log( 'GOT TO ERROR', err);
+    });
   }
 
   Photos.findById(req.params.id)
